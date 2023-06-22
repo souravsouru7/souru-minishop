@@ -5,11 +5,10 @@ urlpatterns = [
     path('about',views.about,name="about"),
     path('blog-single',views.blogsingle,name="blog-single"),
     path('blog',views.blog,name="blog"),
-    path("checkout",views.billing_form,name="checkout"),
+    path('shop',views.shop,name="shop"),
     path('contact',views.contact,name="contact"),
     
-    path('shop',views.shop,name="shop"),
-    path("bank",views.bank_form,name="bank"),
+ 
     
    
     path('<slug:c_slug>/',views.home,name='prod_cat'),
