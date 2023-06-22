@@ -1,5 +1,6 @@
 from django.db import models
 from miniapp.models import product
+from django.contrib.auth.models import User
 
 
 
@@ -8,6 +9,8 @@ from miniapp.models import product
 class cart(models.Model):
     cartid=models.CharField(max_length=1000,unique=True)
     date=models.DateField(auto_now_add=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None,null=True)
+    
 
 
 class items(models.Model):

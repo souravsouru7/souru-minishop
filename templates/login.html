@@ -1,0 +1,186 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns="http://www.w3.org/1999/html">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>login</title>-->
+<!--</head>-->
+<!--<body style=" background-image: linear-gradient(to right, lightblue , #29bbcf); width: 360px;-->
+<!--  padding: 8% 0 0;-->
+<!--  margin: auto; ">-->
+<!--<div class="container">-->
+<!--<form action="login" method="post" style="text-align:center;position: relative;-->
+<!--  z-index: 1;-->
+<!--  background: #FFFFFF;-->
+<!--  max-width: 360px;-->
+<!--  margin: 0 auto 100px;-->
+<!--  padding: 100px;-->
+<!--  text-align: center;-->
+<!--  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);-->
+<!--">-->
+<!--    {% csrf_token %}-->
+<!--    <input type="text" name="username" placeholder="Username" style="font-family: Roboto; sans-serif;-->
+<!--  outline: 0;-->
+<!--  background: #f2f2f2;-->
+<!--  width: 100%;-->
+<!--  border: 0;-->
+<!--  margin: 0 0 15px;-->
+<!--  padding: 15px;-->
+<!--  box-sizing: border-box;-->
+<!--  font-size: 14px;" > </br>-->
+<!--    <input type="password" name="password" placeholder="Password" style="font-family: Roboto; sans-serif;-->
+<!--  outline: 0;-->
+<!--  background: #f2f2f2;-->
+<!--  width: 100%;-->
+<!--  border: 0;-->
+<!--  margin: 0 0 15px;-->
+<!--  padding: 15px;-->
+<!--  box-sizing: border-box;-->
+<!--  font-size: 14px;"> </br>-->
+<!--    <input type="submit" name="login" value="Login">-->
+
+
+<!--</form>-->
+<!--<div><h3><a href="accounts/register"> Register Now </a></h3></div>-->
+
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
+
+<!------------start------------>
+
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login to Travel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@1,200&family=Montserrat&display=swap"
+        rel="stylesheet">
+        <!DOCTYPE html>
+        <html>
+        
+        <head>
+            <style>
+                body {
+                    background-color: #f2f2f2;
+                }
+        
+                .container {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 100vh;
+                }
+        
+                .box1 {
+                    background-color: white;
+                    padding: 20px;
+                    border-radius: 5px;
+                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                    width: 300px;
+                }
+        
+                .h1 {
+                    text-align: center;
+                    margin-bottom: 20px;
+                }
+        
+                .table {
+                    width: 100%;
+                }
+        
+                .td {
+                    width: 100%;
+                    padding: 10px;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                    margin-bottom: 10px;
+                }
+        
+                .btn {
+                    width: 100%;
+                    padding: 10px;
+                    background-color: #4CAF50;
+                    color: white;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                }
+        
+                .act {
+                    text-align: center;
+                    margin-top: 10px;
+                    font-size: 14px;
+                }
+        
+                .act a {
+                    color: #4CAF50;
+                    text-decoration: none;
+                }
+        
+                .box2 {
+                    margin-left: 20px;
+                }
+        
+                .img {
+                    width: 300px;
+                }
+            </style>
+        </head>
+        
+        <body>
+            <form action="login" method="post">
+                {% csrf_token %}
+        
+                <div class="container">
+        
+                    <div class="box1">
+                        <h1 class="h1">SIGN IN</h1>
+                        <table class="table">
+                            <tr>
+                                <td>
+                                    <input type="text" class="td" name="username" placeholder="Enter Username">
+                                </td>
+                            </tr>
+                            <tr>
+        
+                                <td>
+                                    <input type="password" class="td" name="password" placeholder="Enter Password">
+                                </td>
+                            </tr>
+        
+                            <tr>
+                                <td>
+                                    <input class="btn" type="submit" value="Sign Up">
+                                </td>
+                            </tr>
+        
+                            <td>
+                                <div class="act" id="register">
+                                    Don't have an account ?
+                                    <a href="#">
+                                        Register!
+                                    </a>
+                                </div>
+                            </td>
+        
+        
+                        </table>
+        
+                    </div>
+                    <div class="box2">
+                        <img class="img" src="{% static 'img/image1.jpg' %}">
+        
+                    </div>
+                </div>
+        
+        
+            </form>
+        </body>
+        
+        </html>
+        

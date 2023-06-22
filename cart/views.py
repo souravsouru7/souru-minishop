@@ -1,61 +1,47 @@
-from django.shortcuts import render,get_object_or_404
 from miniapp.models import product
-from django.shortcuts import render, redirect
-from .models import cart,items
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import cart, items
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
-from django.urls import reverse
-from django.http import HttpResponseRedirect
-from miniapp.models import *
+from django.contrib.auth.decorators import login_required
 
 
 
-def c_id(request):
-    ct_id=request.session.session_key
-    if not ct_id:
-        ct_id=request.session.create()
-    return ct_id
-
-def add_cart(request,product_id):
-    prod=product.objects.get(id=product_id)
+@login_required
+def add_cart(request, product_id):
+    prod = get_object_or_404(product, id=product_id)
+    user = request.user
 
     try:
-        ct=cart.objects.get(cartid=c_id(request))      #if cart id exist
+        ct = cart.objects.get(user=user)
     except cart.DoesNotExist:
-        ct=cart.objects.create(cartid=c_id(request))    #else create a cart id
-        ct.save()
+        ct = cart.objects.create(user=user)
+    
     try:
-        c_items=items.objects.get(prod=prod,cart=ct)          #if product is exist
-        if c_items.quan < c_items.prod.stock:
-            c_items.quan += 1
-        c_items.save()
-    except items.DoesNotExist:                               #add product
-        c_items=items.objects.create(prod=prod,quan=1,cart=ct)
-        c_items.save()
-
-
+        c_item = items.objects.get(prod=prod, cart=ct)
+        if c_item.quan < c_item.prod.stock:
+            c_item.quan += 1
+        c_item.save()
+    except items.DoesNotExist:
+        c_item = items.objects.create(prod=prod, quan=1, cart=ct)
+    
     return redirect('cart_details')
 
 
-def cart_details(request, tot=0, count=0, ct_items=None):
-    
+@login_required
+def cart_details(request):
+    user = request.user
     try:
-        ct = cart.objects.get(cartid=c_id(request))
-
+        ct = cart.objects.get(user=user)
         ct_items = items.objects.filter(cart=ct, active=True)
-        for i in ct_items:
-            tot += (i.prod.price * i.quan)
-            count += i.quan
+        tot = sum(item.prod.price * item.quan for item in ct_items)
+        count = sum(item.quan for item in ct_items)
+        return render(request, 'cart.html', {"ci": ct_items, 't': tot, 'cn': count})
     except ObjectDoesNotExist:
         return HttpResponse("<script>alert('empty cart');window.location.href='/';</script>")
-    return render(request, 'cart.html', {"ci": ct_items, 't': tot, 'cn': count})
 
 
-
-
-
-
-
+@login_required
 def increment_item(request, item_id):
     item = get_object_or_404(items, id=item_id)
     if item.quan < item.prod.stock:
@@ -63,6 +49,8 @@ def increment_item(request, item_id):
         item.save()
     return redirect('cart_details')
 
+
+@login_required
 def decrement_item(request, item_id):
     item = get_object_or_404(items, id=item_id)
     if item.quan > 1:
@@ -73,12 +61,8 @@ def decrement_item(request, item_id):
     return redirect('cart_details')
 
 
-
+@login_required
 def delete_item(request, item_id):
     item = get_object_or_404(items, id=item_id)
     item.delete()
     return redirect('cart_details')
-
-
-
-

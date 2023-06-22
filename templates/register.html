@@ -1,0 +1,123 @@
+{% load static %}
+<!doctype html>
+<html>
+
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .box1 {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+        .h1 {
+            margin-top: 0;
+        }
+
+        .table {
+            width: 100%;
+        }
+
+        .td {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .act {
+            margin-top: 10px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .act a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        .act a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="box1">
+            <h1 align="center" class="h1">SIGN UP</h1>
+            <table class="table" align="center">
+                <tr>
+                    <td class="tt">
+                        <input type="text" class="td" name="first_name" placeholder="Enter First Name">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" class="td" name="last_name" placeholder="Enter Last Name">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="email" class="td" name="email" placeholder="Enter Email">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" class="td" name="username" placeholder="Enter Username">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="password" class="td" name="password1" placeholder="Enter Password">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="password" class="td" name="password2" placeholder="Confirm Password">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input class="btn" type="submit" value="Sign Up">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="act" id="register">
+                            Already have an account? <a href="#">Login</a>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="box2"></div>
+    </div>
+</body>
+
+</html>

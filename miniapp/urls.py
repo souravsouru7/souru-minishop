@@ -13,5 +13,9 @@ urlpatterns = [
    
     path('<slug:c_slug>/',views.home,name='prod_cat'),
     path('<str:c_slug>/<str:product_slug>/', views.detail, name='detail'),
-    path('search',views.search,name='search')
+    path('search',views.search,name='search'),
+    path('register', views.register,name='register'),
+    path('login', views.login, name='login'),
+    path('logout', views.logout_view, name='logout'),
+
 ]

@@ -109,11 +109,18 @@
                             {% endfor %}
                         </div>
                     </li>
+                   
                     <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
                     <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
                     <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
                     <li class="nav-item cta cta-colored"><a href="cart.html" class="nav-link"><span class="icon-shopping_cart"></span>{{cn}}</a></li>
-
+                    {% if user.is_authenticated %}
+                    <h5 style="color: azure;margin-top: 16px;"> hai{{user.username}}</h5>
+                    <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link">logout</a></li>
+                    {% else %}
+                    <li class="nav-item"><a href="{% url 'register' %}" class="nav-link">Resgister</a></li>
+                    <li class="nav-item"><a href="{% url 'login' %}" class="nav-link">login</a></li>
+                    {% endif %}
            
 
 	
