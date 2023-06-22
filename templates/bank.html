@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block content %}
+<div class="hero-wrap hero-bread" style="background-image: url('{% static 'images/bg_6.jpg'%}');">
+    <div class="container">
+      <div class="row no-gutters slider-text align-items-center justify-content-center">
+        <div class="col-md-9 ftco-animate text-center">
+            <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>bank Details</span></p>
+          <h1 class="mb-0 bread">BANK DETAILS</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <h1 style="text-align: center; margin-top: 20px;"> bank details</h1>
+  <form method="POST" class="needs-validation" novalidate>
+    {% csrf_token %}
+    {{ bank_form.as_p }}
+    <button type="submit" class="btn btn-primary">Submit Bank Details</button>
+    <style>
+      form {
+        text-align: center;
+        margin: 0 auto;
+        width: 50%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        background-color: #f9f9f9;
+        border-radius: 4px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      }
+      .needs-validation {
+        color: #f00;
+      }
+      .btn {
+        background-color: #000;
+        color: #fff;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        border-radius: 4px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      }
+      .btn-primary {
+        background-color: #007bff;
+      }
+      input {
+        border-radius: 4px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      }
+    </style>
+  </form>
+  
+
+            
+			  
+		
+  {% endblock %}

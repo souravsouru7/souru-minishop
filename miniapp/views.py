@@ -8,6 +8,8 @@ from django.contrib.auth import authenticate, login  as auth_login
 from django.contrib.auth import logout
 from django.contrib.auth.models import User,auth
 from django.contrib import messages
+from .forms import BillingForm
+from .forms import  BankForm,BillingDetails
 
 # Create your views here.
 
@@ -37,8 +39,7 @@ def blogsingle(request):
 def blog(request):
     return render(request,'blog.html')
 
-def checkout(request):
-    return render(request,"checkout.html")
+
 def contact(request):
     return render(request,"contact.html")
 def productsingle(request):
@@ -107,3 +108,30 @@ def login(request):
 def logout_view(request):
     logout(request)
     return redirect('/')
+
+
+
+def billing_form(request):
+    if request.method == 'POST':
+        form = BillingForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('bank')  # Redirect to a success page
+    else:
+        form = BillingForm()
+    return render(request, 'checkout.html', {'form': form})
+
+
+
+def bank_form(request):
+    if request.method == 'POST':
+        bank_form = BankForm(request.POST)
+        if bank_form.is_valid():
+            billing_details = BillingDetails.objects.last()  # Get the latest billing details
+            bank_instance = bank_form.save(commit=False)
+            bank_instance.billing_details = billing_details
+            bank_instance.save()
+            return redirect('success')  # Redirect to a success page
+    else:
+        bank_form = BankForm()
+    return render(request, 'bank.html', {'bank_form': bank_form})
