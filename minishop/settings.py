@@ -65,9 +65,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                "cart.context_processor.catey",
-                "cart.context_processor.cart_quantity",
-
+                
             ],
         },
     },
@@ -133,3 +131,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+RAZORPAY_API_KEY = 'rzp_test_N9gY4C1mLfJMhC'
+RAZORPAY_API_SECRET_KEY = 'gPi0pvGNse4DaewYryoJWwvK'

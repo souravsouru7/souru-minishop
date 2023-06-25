@@ -7,6 +7,8 @@ from django.contrib.auth.decorators import login_required
 from .forms import BillingForm
 from .forms import  BankForm,BillingDetails
 from django.contrib import messages
+import razorpay
+from django.conf import settings
 
 
 
@@ -82,6 +84,17 @@ def billing_form(request):
     return render(request, 'checkout.html', {'form': form})
 
 
+def billing_form(request):
+    if request.method == 'POST':
+        form = BillingForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('bank')  # Redirect to a success page
+    else:
+        form = BillingForm()
+    return render(request, 'checkout.html', {'form': form})
+
+
 def bank_form(request):
     if request.method == 'POST':
         bank_form = BankForm(request.POST)
@@ -90,15 +103,41 @@ def bank_form(request):
             bank_instance = bank_form.save(commit=False)
             bank_instance.billing_details = billing_details
             bank_instance.save()
-            user = request.user
-            cart.objects.filter(user=user).delete()
-            messages.success(request, 'Order placed successfully.')
-            return redirect('success')  # Redirect to a success page
+            
+            return redirect('pay')  # Redirect to a success page
     else:
         bank_form = BankForm()
     return render(request, 'bank.html', {'bank_form': bank_form})
 
 
-
 def success(request):
     return render(request, 'success.html')
+
+
+
+
+
+def pay(request):
+    client = razorpay.Client(auth=(settings.RAZORPAY_API_KEY, settings.RAZORPAY_API_SECRET_KEY))
+    
+    user = request.user
+    try:
+        ct = cart.objects.get(user=user)
+        ct_items = items.objects.filter(cart=ct, active=True)
+        tot = sum(item.prod.price * item.quan for item in ct_items)
+        
+        order_amount = int(tot * 100)  # Convert amount to paise or the smallest currency unit of the currency used (e.g., paisa for INR)
+        order_currency = "INR"
+
+        payment_order = client.order.create(dict(amount=order_amount, currency=order_currency, payment_capture=1))
+        payment_order_id = payment_order['id']
+
+        context = {
+            'amount': tot,
+            'api_key': settings.RAZORPAY_API_KEY,
+            'order_id': payment_order_id
+        }
+        return render(request, "pay.html", context)
+    except ObjectDoesNotExist:
+        return HttpResponse("<script>alert('empty cart');window.location.href='/';</script>")
+

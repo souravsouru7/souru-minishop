@@ -12,5 +12,6 @@ urlpatterns = [
     
     path("bank",views.bank_form,name="bank"),
     path("checkout",views.billing_form,name="checkout"),
-     path('success', views.success, name='success'),
+    path('success', views.success, name='success'),
+    path("pay",views.pay,name="pay"),
 ]
